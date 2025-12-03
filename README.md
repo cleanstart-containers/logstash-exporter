@@ -1,53 +1,76 @@
-- *CleanStart Container for Logstash Exporter**
+# CleanStart Container for Logstash Exporter
 
 Official Logstash Exporter container image optimized for enterprise environments. Includes comprehensive Prometheus metrics collection for Logstash instances and monitoring capabilities. Features security-hardened base image, minimal attack surface, and FIPS-compliant cryptographic modules. Supports both production deployments and development workflows with separate tagged versions. Includes Logstash exporter, metrics collection, and essential monitoring tools.
 
-- *Key Features**
+---
+
+## Key Features
+
+Complete Logstash monitoring environment with metrics collection:
+
 - Complete Logstash monitoring environment with metrics collection
 - Optimized for cloud-native and microservices architectures
+- Security-hardened base image with minimal attack surface
+- FIPS-compliant cryptographic modules
+- Prometheus-compatible metrics export
 
-- *Common Use Cases**
+---
+
+## Common Use Cases
+
+Typical scenarios where this container excels:
+
 - Building and deploying Logstash monitoring
 - Cloud-native observability development
+- Prometheus metrics collection from Logstash
+- Monitoring pipeline performance and health
+- Real-time Logstash metrics tracking
 
-- *Pull Commands**
-Download the runtime container images
+---
 
+## Getting Started
+
+### Pull Commands
+
+Download the runtime container images:
 ```bash
 docker pull cleanstart/logstash-exporter:latest
 docker pull cleanstart/logstash-exporter:latest-dev
 ```
 
-- *Interactive Development**
-Start interactive session for development
+### Interactive Development
 
+Start interactive session for development:
 ```bash
 docker run --rm -it --entrypoint /bin/sh cleanstart/logstash-exporter:latest-dev
 ```
 
-- *Container Start**
-Start the container
+### Container Start
+
+Start the container:
 ```bash
 docker run --rm -it --name logstash-exporter-dev cleanstart/logstash-exporter:latest
 ```
 
-- *Best Practices**
+---
+
+## Best Practices
+
 - Use specific image tags for production (avoid latest)
 - Configure resource limits: memory and CPU constraints
 - Enable read-only root filesystem when possible
 
-- *Architecture Support**
+---
 
-- *Multi-Platform Images**
+## Architecture Support
 
+### Multi-Platform Images
 ```bash
 docker pull --platform linux/amd64 cleanstart/logstash-exporter:latest
 docker pull --platform linux/arm64 cleanstart/logstash-exporter:latest
 ```
 
-- *
-
-###
+---
 
 ## Resources
 
@@ -57,10 +80,12 @@ docker pull --platform linux/arm64 cleanstart/logstash-exporter:latest
 - **CleanStart All Images:** https://images.cleanstart.com
 - **CleanStart Community Images:** https://hub.docker.com/u/cleanstart
 
-### Vulnerability Disclaimer
+---
+
+## Vulnerability Disclaimer
 
 CleanStart offers Docker images that include third-party open-source libraries and packages maintained by independent contributors. While CleanStart maintains these images and applies industry-standard security practices, it cannot guarantee the security or integrity of upstream components beyond its control.
 
 Users acknowledge and agree that open-source software may contain undiscovered vulnerabilities or introduce new risks through updates. CleanStart shall not be liable for security issues originating from third-party libraries, including but not limited to zero-day exploits, supply chain attacks, or contributor-introduced risks.
 
-Security remains a shared responsibility: CleanStart provides updated images and guidance where possible, while users are responsible for evaluating deployments and implementing appropriate controls.
+**Security remains a shared responsibility:** CleanStart provides updated images and guidance where possible, while users are responsible for evaluating deployments and implementing appropriate controls.
