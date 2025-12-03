@@ -46,14 +46,14 @@ docker pull --platform linux/arm64 cleanstart/logstash-exporter:latest
 ```
 
 **
-### Resources & Documentation  
-Essential links and resources for further information:
+### 
+### Resources
 
-- CleanStart Website: https://www.cleanstart.com
+- Official Documentation: https://github.com/BobTheShoplifter/logstash-exporter
 - View Provenance, Specifications, SBOM, Signature at: https://images.cleanstart.com/images/logstash-exporter
+- Docker Hub: https://hub.docker.com/r/cleanstart/logstash-exporter
 - CleanStart All Images: https://images.cleanstart.com
-- CleanStart Community Images: https://hub.docker.com/u/cleanstart
-- Other location for Community image: https://hub.docker.com/r/cleanstart/logstash-exporter
+- CleanStart All Community Images: https://hub.docker.com/u/cleanstart
 
 ---
 
