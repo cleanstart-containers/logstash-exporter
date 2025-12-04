@@ -34,22 +34,22 @@ Typical scenarios where this container excels:
 
 Download the runtime container images:
 ```bash
-docker pull cleanstart/logstash-exporter:latest
-docker pull cleanstart/logstash-exporter:latest-dev
+docker pull ghcr.io/cleanstart-containers/logstash-exporter:latest
+docker pull ghcr.io/cleanstart-containers/logstash-exporter:latest-dev
 ```
 
 ### Interactive Development
 
 Start interactive session for development:
 ```bash
-docker run --rm -it --entrypoint /bin/sh cleanstart/logstash-exporter:latest-dev
+docker run --rm -it --entrypoint /bin/sh ghcr.io/cleanstart-containers/logstash-exporter:latest-dev
 ```
 
 ### Container Start
 
 Start the container:
 ```bash
-docker run --rm -it --name logstash-exporter-dev cleanstart/logstash-exporter:latest
+docker run --rm -it --name logstash-exporter-dev ghcr.io/cleanstart-containers/logstash-exporter:latest
 ```
 
 ---
@@ -66,8 +66,8 @@ docker run --rm -it --name logstash-exporter-dev cleanstart/logstash-exporter:la
 
 ### Multi-Platform Images
 ```bash
-docker pull --platform linux/amd64 cleanstart/logstash-exporter:latest
-docker pull --platform linux/arm64 cleanstart/logstash-exporter:latest
+docker pull --platform linux/amd64 ghcr.io/cleanstart-containers/logstash-exporter:latest
+docker pull --platform linux/arm64 ghcr.io/cleanstart-containers/logstash-exporter:latest
 ```
 
 ---
