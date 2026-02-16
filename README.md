@@ -77,7 +77,7 @@ docker pull --platform linux/arm64 ghcr.io/cleanstart-containers/logstash-export
 - **Official Documentation:** https://github.com/BobTheShoplifter/logstash-exporter
 - **Provenance / SBOM / Signature:** https://images.cleanstart.com/images/logstash-exporter
 - **Docker Hub:** https://hub.docker.com/r/cleanstart/logstash-exporter
-- **CleanStart All Images:** https://images.cleanstart.com
+- **CleanStart All Images:** https://images.cleanstart.com/images/logstash-exporter/details
 - **CleanStart Community Images:** https://hub.docker.com/u/cleanstart
 
 ---
