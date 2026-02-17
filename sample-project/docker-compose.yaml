@@ -1,9 +1,26 @@
-version: "3.8"
-
 services:
-  logstash-exporter:
-    build: .
-    container_name: logstash-exporter
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: logstash
     restart: unless-stopped
     ports:
+      - "9600:9600"
+      - "5044:5044"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    # Default pipeline (Beats 5044); monitoring API on 9600 is enabled by default in 8.x.
+    # No healthcheck: the image may not include curl/wget; exporter will retry until Logstash is up.
+
+  logstash-exporter:
+    image: cleanstart/logstash-exporter:latest
+    container_name: logstash-exporter
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      LOGSTASH_URL: http://logstash:9600
+    volumes:
+      - ./.env:/app/.env:ro
+    ports:
       - "9198:9198"
+    depends_on:
+      - logstash

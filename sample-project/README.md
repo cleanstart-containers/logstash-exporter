@@ -1,51 +1,88 @@
-# 🚀 Hello World!!! 
+# Logstash Exporter Sample Project
 
-A simple **HELLO WORLD** program to run on CleanStart - Logstash Exporter container. 
+This sample shows how to run the **CleanStart Logstash Exporter** container and optionally run it with Logstash so the exporter can scrape the Logstash monitoring API and expose Prometheus metrics.
 
-## To run the Hello World without Dockerfile to avoid making simple things complex
+## Project structure
 
-### Pull CleanStart Logstash Exporter image from [Docker Hub - CleanStart](https://hub.docker.com/u/cleanstart) 
+| File | Description |
+|------|-------------|
+| `.env` | Config for the exporter (required; copy from `.env.example` if missing). Sets `LOGSTASH_URL`. |
+| `.env.example` | Template for `.env`. |
+| `docker-compose.yaml` | Runs Logstash and the exporter together. |
+| `README.md` | This file. |
+
+## Option A: Run with Docker Compose (recommended)
+
+Runs Logstash and the exporter. The exporter scrapes Logstash at `http://logstash:9600` and serves metrics on port 9198.
+
+```bash
+# From the sample-project directory
+docker compose up -d
+```
+
+- **Logstash** listens on 9600 (monitoring API) and 5044 (Beats). It may take 60–90 seconds to become ready.
+- **Exporter** listens on 9198. You may see “connection refused” in logs until Logstash is up; the exporter will then connect.
+
+**Metrics:** http://localhost:9198/metrics  
+
+**Stop:**
+
+```bash
+docker compose down
+```
+
+## Option B: Run the exporter only (`docker run`)
+
+Use this when Logstash runs elsewhere (host or another stack). The container **requires a `.env` file**; without it you get: `open .env: no such file or directory`.
+
+From the **sample-project** directory (so `.env` exists):
+
+```bash
+docker run --rm -p 9198:9198 \
+  -w /app \
+  -v "$(pwd)/.env:/app/.env:ro" \
+  cleanstart/logstash-exporter:latest
+```
+
+- `-w /app` — working directory so the app finds `.env` at `/app/.env`.
+- `-v .../.env:/app/.env:ro` — mount your `.env` into the container.
+
+If no Logstash is reachable at the URL in `.env`, you will see **connection refused** to port 9600. The exporter still listens on 9198 and serves http://localhost:9198/metrics (metrics will be empty or partial until Logstash is reachable).
+
+To point at Logstash on your **host**: set in `.env`:
+
+```bash
+LOGSTASH_URL=http://host.docker.internal:9600
+```
+
+(Mac/Windows Docker; on Linux you may need your host IP.)
+
+## Configuration
+
+| Variable | Description |
+|----------|-------------|
+| `LOGSTASH_URL` | Logstash monitoring API URL (default: `http://localhost:9600`). |
+
+Edit `.env` or pass `-e LOGSTASH_URL=...` (with a mounted `.env` so the file open still succeeds).
+
+## Pull the image
+
 ```bash
 docker pull cleanstart/logstash-exporter:latest
-```
-```bash
 docker pull cleanstart/logstash-exporter:latest-dev
 ```
 
-## If you have the Logstash Exporter image pulled, you can also run your program directly:
-```bash
-docker run --rm -p 9198:9198 cleanstart/logstash-exporter:latest
-```
-## Output 
-```bash
-logstash_exporter, version 1.0.0 (branch: HEAD, revision: abc123)
-build user:       root@logstash-exporter
-build date:       20240115-10:30:45
-go version:       go1.21.0
-platform:         linux/amd64
-level=info ts=2024-01-15T10:30:45.123Z caller=main.go:456 msg="Starting Logstash Exporter" mode=server
-level=info ts=2024-01-15T10:30:45.124Z caller=main.go:457 msg="Build context" go_version=go1.21.0
-level=info ts=2024-01-15T10:30:45.125Z caller=main.go:458 msg="Listening on" address=:9198
-level=info ts=2024-01-15T10:30:45.126Z caller=main.go:459 msg="Server is ready to receive web requests."
-```
+## Access the metrics endpoint
 
-## Access the Metrics Endpoint
-Open your browser and go to: **http://localhost:9198/metrics**
+Open: **http://localhost:9198/metrics**
 
-You should see the Prometheus metrics endpoint for Logstash monitoring.
+You should see Prometheus-format metrics for Logstash (once Logstash is running and reachable at `LOGSTASH_URL`).
 
-## 📚 Resources
+## Resources
 
-- [Verified Docker Image Publisher - CleanStart](https://cleanstart.com/)
-- [Logstash Exporter Official Documentation](https://github.com/prometheus-community/logstash_exporter)
+- [CleanStart](https://cleanstart.com/)
+- [Logstash Exporter (prometheus-community)](https://github.com/prometheus-community/logstash_exporter)
 
-## 🤝 Contributing
+## License
 
-Feel free to contribute to this project by:
-- Reporting bugs
-- Suggesting new features
-- Submitting pull requests
-- Improving documentation
-
-## 📄 License
 This project is open source and available under the [MIT License](LICENSE).
